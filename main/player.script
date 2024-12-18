@@ -1,0 +1,107 @@
+-- Base movement speed of the player
+local base_speed = 450
+-- Distance to dash in an instant
+local dash_distance = 300 -- distance the dash will do
+-- Cooldown time before the player can dash again
+local dash_cooldown = 1
+-- Dash state flags
+local can_dash = true
+
+local crosshair_position = vmath.vector3()
+
+function init(self)
+	-- Acquire input and camera focus
+	msg.post("#", "acquire_input_focus")
+	msg.post("#camera", "acquire_camera_focus")
+	msg.post("@render:", "use_camera_projection")
+	self.camera_id = msg.url("#camera")
+
+	self.crosshair = msg.url("main:/crosshair")
+	self.crosshair_position = crosshair_position
+	-- Initialize movement and dash variables
+	self.moving = false
+	self.input = vmath.vector3() -- Input vector for movement
+	self.dir = vmath.vector3(0, 1, 0) -- Default direction
+	self.speed = base_speed
+	self.dash_cooldown_timer = 0
+
+	print("Player initialized!")
+end
+
+local function perform_dash(self)
+	if can_dash then
+		print("Performing dash!") -- Debugging output
+		can_dash = false -- Disable dashing until cooldown
+
+		-- Calculate new position based on direction
+		local new_position = go.get_position() + self.dir * dash_distance --calculates a new position
+		go.set_position(new_position) -- applys this position to the player
+
+		-- Start cooldown timer
+		self.dash_cooldown_timer = dash_cooldown
+	end
+end
+
+function update(self, dt)
+	-- Handle player movement
+	if self.moving then
+		local pos = go.get_position() -- gets the position of the player 
+		pos = pos + self.dir * self.speed * dt -- changes the players position to new updated one
+		go.set_position(pos) -- sets this new position
+	end
+
+	-- Handle dash cooldown
+	if not can_dash then 
+		self.dash_cooldown_timer = self.dash_cooldown_timer - dt
+		if self.dash_cooldown_timer <= 0 then
+			can_dash = true
+			print("Dash re-enabled!") -- Debugging output
+		end
+	end
+
+	-- Update the crosshair position
+	go.set_position(self.crosshair_position, self.crosshair)
+end
+
+function on_input(self, action_id, action)
+	-- Forward input to the spear spawner
+	msg.post("/spear_spawner", "input", { action_id = action_id, action = action })
+
+	-- Forward input to the sword spawner
+	msg.post("/sword_spawner", "input", { action_id = action_id, action = action })
+
+	if action_id == hash("mouse_move") then
+		local mouse_screen_pos = vmath.vector3(action.screen_x, action.screen_y, 0)
+		local mouse_world_pos = camera.screen_to_world(self.camera_id, mouse_screen_pos)
+		go.set_position(mouse_world_pos, self.crosshair)
+	end
+
+	-- Handle movement input
+	if action_id == hash("right") then
+		self.input.x = action.pressed and 1 or (action.released and 0 or self.input.x)
+	elseif action_id == hash("left") then
+		self.input.x = action.pressed and -1 or (action.released and 0 or self.input.x)
+	elseif action_id == hash("up") then
+		self.input.y = action.pressed and 1 or (action.released and 0 or self.input.y)
+	elseif action_id == hash("down") then
+		self.input.y = action.pressed and -1 or (action.released and 0 or self.input.y)
+	end
+
+	-- Perform dash
+	if action_id == hash("dash") and action.pressed then -- if the user presses the space bar
+		perform_dash(self) -- call the dash function
+	end
+
+	-- Check if there is movement input
+	if vmath.length(self.input) > 0 then
+		self.moving = true
+		self.dir = vmath.normalize(self.input)
+	else
+		self.moving = false
+	end
+end
+
+function final(self)
+	-- Release input focus when the player is destroyed
+	msg.post(".", "release_input_focus")
+end

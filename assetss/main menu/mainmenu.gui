@@ -1,0 +1,92 @@
+script: "/assetss/main menu/mainmenu.gui_script"
+fonts {
+  name: "mainmenu"
+  font: "/assetss/main menu/mainmenu.font"
+}
+textures {
+  name: "menuscreen"
+  texture: "/assetss/images/menuscreen.atlas"
+}
+nodes {
+  position {
+    x: 486.0
+    y: 316.0
+  }
+  size {
+    x: 960.0
+    y: 640.0
+  }
+  type: TYPE_BOX
+  texture: "menuscreen/oie_HBACImeFs0Cc"
+  id: "box"
+  inherit_alpha: true
+}
+nodes {
+  position {
+    x: 446.0
+    y: 244.0
+  }
+  scale {
+    x: 0.961042
+    y: 1.020812
+  }
+  size {
+    x: 200.0
+    y: 100.0
+  }
+  color {
+    x: 0.0
+    y: 0.0
+    z: 0.0
+  }
+  type: TYPE_TEXT
+  text: "START GAME"
+  font: "mainmenu"
+  id: "StartGame"
+  inherit_alpha: true
+}
+nodes {
+  position {
+    x: 833.0
+    y: 57.0
+  }
+  scale {
+    x: 0.549935
+    y: 0.926373
+  }
+  size {
+    x: 200.0
+    y: 100.0
+  }
+  color {
+    x: 0.0
+    y: 0.0
+    z: 0.0
+  }
+  type: TYPE_TEXT
+  text: "EXIT GAME"
+  font: "mainmenu"
+  id: "ExitGame"
+  inherit_alpha: true
+}
+nodes {
+  position {
+    x: 828.0
+    y: 408.0
+  }
+  scale {
+    x: 0.542698
+    y: 0.951872
+    z: 1.093333
+  }
+  size {
+    x: 200.0
+    y: 100.0
+  }
+  type: TYPE_BOX
+  id: "mute_button"
+  inherit_alpha: true
+  size_mode: SIZE_MODE_AUTO
+}
+material: "/builtins/materials/gui.material"
+adjust_reference: ADJUST_REFERENCE_PARENT

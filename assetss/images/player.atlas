@@ -1,0 +1,19 @@
+images {
+  image: "/assetss/images/purple_character.png"
+}
+images {
+  image: "/assetss/images/purple_hand.png"
+}
+images {
+  image: "/assetss/images/weapon_longsword.png"
+}
+animations {
+  id: "spear"
+  images {
+    image: "/assetss/images/weapon_pole.png"
+  }
+  playback: PLAYBACK_LOOP_FORWARD
+}
+margin: 2
+extrude_borders: 4
+inner_padding: 2

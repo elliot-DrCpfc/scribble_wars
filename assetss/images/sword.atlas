@@ -1,0 +1,4 @@
+images {
+  image: "/assetss/images/weapon_longsword.png"
+}
+extrude_borders: 2

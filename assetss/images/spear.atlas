@@ -1,0 +1,4 @@
+images {
+  image: "/assetss/images/weapon_pole.png"
+}
+extrude_borders: 2

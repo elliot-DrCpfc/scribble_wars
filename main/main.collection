@@ -1,0 +1,263 @@
+name: "main"
+scale_along_z: 0
+embedded_instances {
+  id: "player"
+  children: "player_hand_right"
+  children: "player_left_hand"
+  data: "components {\n"
+  "  id: \"player\"\n"
+  "  component: \"/main/player.script\"\n"
+  "}\n"
+  "components {\n"
+  "  id: \"dash\"\n"
+  "  component: \"/assetss/dash.sound\"\n"
+  "}\n"
+  "components {\n"
+  "  id: \"dash_trail\"\n"
+  "  component: \"/assetss/dash_trail.particlefx\"\n"
+  "  position {\n"
+  "    x: 298.0\n"
+  "    y: 137.0\n"
+  "  }\n"
+  "}\n"
+  "embedded_components {\n"
+  "  id: \"camera\"\n"
+  "  type: \"camera\"\n"
+  "  data: \"aspect_ratio: 1.0\\n"
+  "fov: 0.7854\\n"
+  "near_z: -0.1\\n"
+  "far_z: 1000.0\\n"
+  "auto_aspect_ratio: 1\\n"
+  "orthographic_projection: 1\\n"
+  "\"\n"
+  "}\n"
+  "embedded_components {\n"
+  "  id: \"sprite\"\n"
+  "  type: \"sprite\"\n"
+  "  data: \"default_animation: \\\"purple_character\\\"\\n"
+  "material: \\\"/builtins/materials/sprite.material\\\"\\n"
+  "textures {\\n"
+  "  sampler: \\\"texture_sampler\\\"\\n"
+  "  texture: \\\"/assetss/images/player.atlas\\\"\\n"
+  "}\\n"
+  "\"\n"
+  "}\n"
+  "embedded_components {\n"
+  "  id: \"collisionobject\"\n"
+  "  type: \"collisionobject\"\n"
+  "  data: \"type: COLLISION_OBJECT_TYPE_KINEMATIC\\n"
+  "mass: 0.0\\n"
+  "friction: 0.1\\n"
+  "restitution: 0.5\\n"
+  "group: \\\"player\\\"\\n"
+  "mask: \\\"enemy\\\"\\n"
+  "embedded_collision_shape {\\n"
+  "  shapes {\\n"
+  "    shape_type: TYPE_BOX\\n"
+  "    position {\\n"
+  "    }\\n"
+  "    rotation {\\n"
+  "    }\\n"
+  "    index: 0\\n"
+  "    count: 3\\n"
+  "  }\\n"
+  "  data: 38.266666\\n"
+  "  data: 38.266666\\n"
+  "  data: 38.266666\\n"
+  "}\\n"
+  "\"\n"
+  "}\n"
+  ""
+  position {
+    x: 915.0
+    y: -3.0
+    z: 10.0
+  }
+  scale3 {
+    x: 2.0
+    y: 2.0
+  }
+}
+embedded_instances {
+  id: "player_hand_right"
+  data: "embedded_components {\n"
+  "  id: \"sprite\"\n"
+  "  type: \"sprite\"\n"
+  "  data: \"default_animation: \\\"purple_hand\\\"\\n"
+  "material: \\\"/builtins/materials/sprite.material\\\"\\n"
+  "textures {\\n"
+  "  sampler: \\\"texture_sampler\\\"\\n"
+  "  texture: \\\"/assetss/images/player.atlas\\\"\\n"
+  "}\\n"
+  "\"\n"
+  "  position {\n"
+  "    x: 79.01464\n"
+  "    y: 1.209543\n"
+  "  }\n"
+  "  scale {\n"
+  "    x: 1.081494\n"
+  "    y: 0.519123\n"
+  "  }\n"
+  "}\n"
+  ""
+  position {
+    x: 0.4
+    y: -0.4
+    z: 0.1
+  }
+  scale3 {
+    x: 0.34424
+    y: 0.661407
+  }
+}
+embedded_instances {
+  id: "player_left_hand"
+  data: "embedded_components {\n"
+  "  id: \"sprite\"\n"
+  "  type: \"sprite\"\n"
+  "  data: \"default_animation: \\\"purple_hand\\\"\\n"
+  "material: \\\"/builtins/materials/sprite.material\\\"\\n"
+  "textures {\\n"
+  "  sampler: \\\"texture_sampler\\\"\\n"
+  "  texture: \\\"/assetss/images/player.atlas\\\"\\n"
+  "}\\n"
+  "\"\n"
+  "  scale {\n"
+  "    x: 1.081494\n"
+  "    y: 0.519123\n"
+  "  }\n"
+  "}\n"
+  ""
+  position {
+    x: -27.2
+    y: -0.4
+    z: 0.1
+  }
+  scale3 {
+    x: 0.34424
+    y: 0.661407
+  }
+}
+embedded_instances {
+  id: "map"
+  data: "components {\n"
+  "  id: \"map\"\n"
+  "  component: \"/main/map.tilemap\"\n"
+  "}\n"
+  ""
+  position {
+    z: 1.0
+  }
+}
+embedded_instances {
+  id: "background"
+  data: "embedded_components {\n"
+  "  id: \"sprite\"\n"
+  "  type: \"sprite\"\n"
+  "  data: \"default_animation: \\\"grey\\\"\\n"
+  "material: \\\"/builtins/materials/sprite.material\\\"\\n"
+  "textures {\\n"
+  "  sampler: \\\"texture_sampler\\\"\\n"
+  "  texture: \\\"/assetss/images/grey.atlas\\\"\\n"
+  "}\\n"
+  "\"\n"
+  "  position {\n"
+  "    x: 141.19597\n"
+  "    y: -370.6718\n"
+  "    z: 107.62986\n"
+  "  }\n"
+  "  rotation {\n"
+  "    y: 0.11553146\n"
+  "    w: 0.99330384\n"
+  "  }\n"
+  "}\n"
+  ""
+  position {
+    x: 282.0
+    y: 4988.0
+    z: -1034.0
+  }
+  scale3 {
+    x: 10.459506
+    y: 12.668566
+    z: 5.092267
+  }
+}
+embedded_instances {
+  id: "spawner"
+  data: "components {\n"
+  "  id: \"enemy_factory\"\n"
+  "  component: \"/main/enemy_factory.factory\"\n"
+  "}\n"
+  "components {\n"
+  "  id: \"spawner\"\n"
+  "  component: \"/main/spawner.script\"\n"
+  "}\n"
+  ""
+}
+embedded_instances {
+  id: "sword_spawner"
+  data: "components {\n"
+  "  id: \"sword\"\n"
+  "  component: \"/main/sword.script\"\n"
+  "}\n"
+  "embedded_components {\n"
+  "  id: \"sword_factory\"\n"
+  "  type: \"factory\"\n"
+  "  data: \"prototype: \\\"/main/sword.go\\\"\\n"
+  "\"\n"
+  "}\n"
+  ""
+  position {
+    x: 381.0
+    y: 104.0
+  }
+}
+embedded_instances {
+  id: "spear_spawner"
+  data: "components {\n"
+  "  id: \"spear\"\n"
+  "  component: \"/main/spear.script\"\n"
+  "}\n"
+  "embedded_components {\n"
+  "  id: \"spear_factory\"\n"
+  "  type: \"factory\"\n"
+  "  data: \"prototype: \\\"/main/spear.go\\\"\\n"
+  "\"\n"
+  "}\n"
+  ""
+}
+embedded_instances {
+  id: "crosshair"
+  data: "embedded_components {\n"
+  "  id: \"sprite\"\n"
+  "  type: \"sprite\"\n"
+  "  data: \"default_animation: \\\"crosshair008\\\"\\n"
+  "material: \\\"/builtins/materials/sprite.material\\\"\\n"
+  "textures {\\n"
+  "  sampler: \\\"texture_sampler\\\"\\n"
+  "  texture: \\\"/assetss/images/crosshair.atlas\\\"\\n"
+  "}\\n"
+  "\"\n"
+  "  position {\n"
+  "    x: 191.0\n"
+  "    y: 42.0\n"
+  "  }\n"
+  "  scale {\n"
+  "    x: 6.997333\n"
+  "    y: 6.997333\n"
+  "    z: 0.699733\n"
+  "  }\n"
+  "}\n"
+  ""
+  position {
+    x: 357.0
+    y: 206.0
+    z: 10.0
+  }
+  scale3 {
+    x: 0.45683
+    y: 0.464837
+    z: 1.2
+  }
+}

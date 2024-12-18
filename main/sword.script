@@ -1,0 +1,57 @@
+go.property("sword_factory", resource.factory("/path/to/sword_factory.factory"))
+
+local swing_duration = 1 -- Duration of the swing (seconds)
+local swing_radius = 300 -- Radius of the swing (distance from the player)
+local sword_active = false -- Is the sword active?
+local sword_timer = 0 -- Timer for the swing
+local sword_id = nil -- ID of the active sword
+
+-- Function to spawn and swing the sword around the player
+local function spawn_and_swing_sword(player_position)
+	-- Spawn sword using the factory at the player's position
+	sword_id = factory.create("#sword_factory", player_position)
+	sword_active = true
+	sword_timer = 0
+end
+
+function init(self)
+	msg.post(".", "acquire_input_focus") -- Acquire input focus for sword controls
+end
+
+function update(self, dt)
+	-- Handle sword swing if active
+	if sword_active and sword_id then
+		sword_timer = sword_timer + dt
+		local t = sword_timer / swing_duration -- Normalize time for the swing
+		local full_circle = math.pi * 2 -- Full circle in radians
+		local current_angle = t * full_circle -- Calculate current swing angle
+
+		-- Calculate sword position based on angle and radius
+		local player_position = go.get_position("player") -- Replace "player" with your player ID
+		local sword_position = vmath.vector3(
+		player_position.x + math.cos(current_angle) * swing_radius,
+		player_position.y + math.sin(current_angle) * swing_radius,
+		0
+	)
+
+	-- Update sword position and rotation
+	go.set_position(sword_position, sword_id)
+	go.set_rotation(vmath.quat_rotation_z(current_angle), sword_id)
+
+	-- Deactivate sword when swing is complete
+	if sword_timer >= swing_duration then
+		go.delete(sword_id)
+		sword_active = false
+	end
+end
+end
+
+function on_input(self, action_id, action)
+-- Handle sword swing input
+if action_id == hash("swing") and action.pressed and not sword_active then
+	local player_position = go.get_position("player") -- Replace "player" with your actual player ID
+	spawn_and_swing_sword(player_position)
+	print("Sword spawned and swinging!")
+end
+end
+

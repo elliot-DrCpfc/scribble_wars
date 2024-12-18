@@ -1,0 +1,41 @@
+
+go.property("enemy_factory", resource.factory("/path/to/enemy_factory.factory"))
+
+local spawn_interval = 4 -- Time between spawns (in seconds)
+local spawn_distance = 500 -- Max distance from the player where enemies spawn
+local min_distance = 200 -- Min distance from the player (to prevent spawning too close)
+
+-- Function to spawn an enemy at a random location around the player
+local function spawn_enemy_around_player(player_position)
+	-- Random angle between 0 and 2π (360 degrees in radians)
+	local angle = math.random() * 2 * math.pi
+
+	-- Random distance between min_distance and spawn_distance
+	local distance = math.random(min_distance, spawn_distance)
+
+	-- Calculate x and y positions based on angle and distance
+	local x = player_position.x + math.cos(angle) * distance
+	local y = player_position.y + math.sin(angle) * distance
+
+	-- Spawn enemy using factory at the calculated position
+	factory.create("#enemy_factory", vmath.vector3(x, y, 0))
+	
+end
+
+function init(self)
+	-- Start spawning enemies at regular intervals
+	self.spawn_timer = timer.delay(spawn_interval, true, function()
+		-- Get the player's position from the player object
+		local player_position = go.get_position("player") -- Replace "player" with your actual player ID
+		spawn_enemy_around_player(player_position)
+		print("spawning")
+	end)
+end
+
+function final(self)
+	-- Cancel the timer if the spawner is destroyed
+	if self.spawn_timer then
+		timer.cancel(self.spawn_timer)
+	end
+end
+

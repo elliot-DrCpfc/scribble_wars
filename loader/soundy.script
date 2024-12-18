@@ -1,0 +1,7 @@
+local function play_background()
+	sound.play("#background")
+end
+
+function init(self)
+	play_background()
+end
